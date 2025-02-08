@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Homepage</title>
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+    <style>
+        /* Style for positioning login and signup buttons */
+        .top-right {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex; /* Ensures buttons are in one line */
+            gap: 10px; /* Adds space between buttons */
+        }
+
+        .top-right a {
+            text-decoration: none; /* Removes any link styling */
+        }
+
+        .top-right button {
+            padding: 8px 12px;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            background-color: #ff9797;
+            color: white;
+            border-radius: 5px;
+        }
+
+        /* Centering the main content */
+        .center-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh; /* Full viewport height */
+            text-align: center;
+        }
+        h1{
+            font-family: 'Pacifico', cursive;
+            font-size: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Login and Signup Section -->
+    <div class="top-right">
+        <a href="login.html">
+            <button type="button">Login</button>
+        </a>
+        <a href="signup.html">
+            <button type="button">Signup</button>
+        </a>
+    </div>
+
+    <!-- Main Content (Centered) -->
+    <div class="center-content">
+        <h1>Welcome</h1>
+
+        <h2>What's the importance of budgeting?</h2>
+        <p>
+            Controls Spending<br>
+            Helps Save Money<br>
+            Avoid Debt<br>
+            Prepares for Emergencies<br>
+            Achieves Financial Goals<br>
+            Reduces Stress<br>
+        </p>
+    </div>
+
+</body>
+</html>
