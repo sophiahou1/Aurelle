@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Financial Chat</title>
+    <script>
+        async function askAI() {
+            let userMessage = document.getElementById("userInput").value;
+            document.getElementById("chat").innerHTML += "<p><b>You:</b> " + userMessage + "</p>";
+            document.getElementById("userInput").value = "";
+
+            let response = await fetch("/ask_ai", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({"message": userMessage})
+            });
+
+            let data = await response.json();
+            document.getElementById("chat").innerHTML += "<p><b>AI:</b> " + data.response + "</p>";
+        }
+
+        async function submitData() {
+            let responses = document.getElementById("chat").innerText.split("\n").slice(1);
+            let financialData = responses.filter((_, i) => i % 2 === 1);  // Collect only user responses
+
+            let response = await fetch("/submit_financial_data", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({"financial_data": financialData})
+            });
+
+            let result = await response.json();
+            alert(result.message);
+            window.location.href = "/";  // Redirect to login
+        }
+    </script>
+</head>
+<body>
+    <h2>Chat with AI</h2>
+    <div id="chat">
+        <p><b>AI:</b> Hi! Let's learn about your finances in a fun way. What's your monthly income?</p>
+    </div>
+    <input type="text" id="userInput" placeholder="Type your answer...">
+    <button onclick="askAI()">Send</button>
+    <button onclick="submitData()">Finish</button>
+</body>
+</html>
