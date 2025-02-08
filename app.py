@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request, redirect, url_for
-from werkzeug.security import generate_password_hash, check_password_hash
+from flask import Flask, redirect, render_template, request, url_for
+from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
 app.secret_key = "a3f4c8e1b5d9f6a7c2e0b1d8e4f7a6c9"
@@ -10,10 +10,14 @@ def load_users():
     try:
         with open("users.txt", "r") as f:
             for line in f:
-                username, hashed_password = line.strip().split(":")
-                users[username] = hashed_password  
+                line = line.strip()
+                if ":" in line:
+                    username, hashed_password = line.split(":",1)
+                    users[username] = hashed_password
+                else:
+                        print(f"Skipping malformed line: {line}")
     except FileNotFoundError:
-        pass
+        print("User file not found. Starting with an empty user list.")
     return users
 
 def save_user(username, password):
@@ -39,14 +43,19 @@ def signup():
         return redirect(url_for('home'))
     return render_template('signup.html')
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['POST', 'GET'])
 def login():
-    username = request.form['username']
-    password = request.form['password']
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
     
-    if username in users and check_password_hash(users[username], password): 
-        return redirect(url_for('success'))
-    return "Invalid credentials. Please try again."
+        if username in users and check_password_hash(users[username], password): 
+            return redirect(url_for('success'))
+        return '''
+            <p>Invalid credentials. Please try again.</p>
+            <a href="/login">Go back to Login</a>
+        '''
+    return render_template('login.html')
 
 @app.route('/success')
 def success():
