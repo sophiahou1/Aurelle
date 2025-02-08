@@ -1,8 +1,24 @@
 from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
+app.secret_key = "88c5de10c652fca821ced0515c1df06b"
 
-users = {}
+def load_users():
+    users = {}
+    try:
+        with open("users.txt", "r") as f:
+            for line in f:
+                username, password = line.strip().split(":")
+                users[username] = password
+    except FileNotFoundError:
+        pass
+    return users
+def save_user(username, password):
+    with open("users.txt", "a") as f:
+        f.write(f"{username}:{password}\n")
+
+
+users = load_users()
 
 @app.route('/')
 def home():
@@ -16,7 +32,8 @@ def signup():
         if username in users:
             return "Username already taken. Choose another one."
         users[username] = password
-        return redirect(url_for('home')) 
+        save_user(username, password)  # Save to file
+        return redirect(url_for('home'))
     return render_template('signup.html')
 
 @app.route('/login', methods=['POST'])
@@ -30,6 +47,10 @@ def login():
 @app.route('/success')
 def success():
     return "Login successful!"
+
+@app.route('/users')
+def show_users():
+    return "<br>".join(users.keys()) 
 
 if __name__ == '__main__':
     app.run(debug=True)
