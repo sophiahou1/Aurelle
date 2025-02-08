@@ -2,7 +2,6 @@
 <html>
 <head>
     <title>Homepage</title>
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet"> -->
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
     <style>
@@ -11,12 +10,12 @@
             position: absolute;
             top: 10px;
             right: 10px;
-            display: flex; /* Ensures buttons are in one line */
-            gap: 10px; /* Adds space between buttons */
+            display: flex;
+            gap: 10px;
         }
 
         .top-right a {
-            text-decoration: none; /* Removes any link styling */
+            text-decoration: none;
         }
 
         .top-right button {
@@ -29,16 +28,16 @@
             border-radius: 5px;
         }
 
-        /* Centering the main content */
         .center-content {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh; /* Full viewport height */
+            height: 100vh;
             text-align: center;
         }
-        h1{
+
+        h1 {
             font-family: 'Pacifico', cursive;
             font-size: 50px;
         }
@@ -48,10 +47,10 @@
 
     <!-- Login and Signup Section -->
     <div class="top-right">
-        <a href="login.html">
+        <a href="{{ url_for('login') }}">
             <button type="button">Login</button>
         </a>
-        <a href="signup.html">
+        <a href="{{ url_for('signup') }}">
             <button type="button">Signup</button>
         </a>
     </div>
