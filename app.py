@@ -1,5 +1,7 @@
 import os
 
+import matplotlib
+import matplotlib.pyplot as plt
 import openai
 from dotenv import load_dotenv
 from flask import (Flask, jsonify, redirect, render_template, request, session,
@@ -68,6 +70,77 @@ def login():
 @app.route('/financial_form')
 def financial_form():
     return render_template("financial_form.html")
+
+@app.route('/expense_report', methods=['GET','POST'])
+def expense_report():
+    chart_url = None
+    if request.method == 'POST':
+    # Retrieve form data
+        try:
+            income = int(request.form['income'])
+            categories = request.form.getlist('categories[]')
+            expenses = list(map(int, request.form.getlist('expenses[]')))
+            if not categories or not expenses:
+                raise ValueError("Incomplete expense data.")
+
+            financial_data = {"income": income, "expenses": dict(zip(categories, expenses))}
+
+    # Generate the pie chart
+            chart_filename = generate_expense_pie_chart(financial_data)
+            chart_url = url_for('static', filename=chart_filename)
+            
+        except ValueError:
+            return "Please ensure all fields are filled correctly and expenses are numeric."
+
+    # Render the financial form with the chart
+    return render_template("expense_report.html", chart_url=chart_url)
+
+matplotlib.use('Agg')  # Ensure compatibility with server environments
+
+def generate_expense_pie_chart(data):
+    categories = list(data['expenses'].keys())
+    expenses = list(data['expenses'].values())
+    total_expenses = sum(expenses)
+
+    savings = max(0, data['income'] - total_expenses)
+
+    # Add savings as a category if there's any
+    if savings > 0:
+        categories.append("Savings")
+        expenses.append(savings)
+        
+    # Handle case where there are no expenses
+    if sum(expenses) == 0:
+        return None
+
+    # Choose pastel colors for a chic look
+    colors = ["#f8bbd0", "#f48fb1", "#ffec9e", "#7ae7b9", "#5bd2f0",
+              "#9be7ff", "#b9acf2", "#c5e1a5", "#e6ee9c", "#ffabab"]
+
+    plt.figure(figsize=(8, 8))
+    wedges, texts, autotexts = plt.pie(
+        expenses,
+        labels=categories,
+        colors=colors[:len(categories)],  # Limit to available colors
+        autopct='%1.1f%%',
+        startangle=140,
+        textprops={'fontsize': 12, 'color': '#333'},
+        wedgeprops={'edgecolor': '#f3e5f5'}
+    )
+    
+    # Add title with chic color
+    plt.title(f"Expense Distribution for Monthly Income: ${data['income']}",
+              fontsize=16, color="#e91e63", pad=20)
+    
+    for autotext in autotexts:
+        autotext.set_color("black")
+
+    chart_filename = "expense_chart.png"
+    chart_path = f"static/{chart_filename}"
+    plt.savefig(chart_path, bbox_inches="tight")
+    plt.close()
+
+    return chart_filename
 
 @app.route('/ask_ai', methods=['POST'])
 def ask_ai():
