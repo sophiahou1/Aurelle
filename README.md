@@ -17,5 +17,5 @@ Some challenges we encountered were setting up our environment since some of us 
 ## What we learned along the way
 This project was the first time any of us worked with website frontend and backend development, so in this journey, we learned a lot. Aside from the technical side of learning to work with html, css, flask, python, etc., we learned not to be intimidated by our lack of knowledge. There is an abundance of information out there that allows us to pick up what we need to know really quickly. We learned that persistence and determination can get us a long way, and we learned to be able to lean on each other for support. 
 
-##The future of Aurelle
+## The future of Aurelle
  We want Aurelle to offer an even more personalized experience where Aurelle can use your financial data to generate visuals and graphics. We would love to be able to link to banks and investment accounts to get even better insight into how we can help our users and help our users have a smoother experience where they don't have to manually input all their information. We want Aurelle to be a one-stop shop for all things financial management. 
