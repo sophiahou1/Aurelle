@@ -53,7 +53,7 @@
         }
 
         .logo {
-            width: 150px;
+            width: 350px;
             height: auto;
             margin-bottom: 20px;
             object-fit: contain;
@@ -169,7 +169,7 @@
     </div>
 
     <div class="header-content">
-        <img src="./Logo.png" alt="Aurelle Logo" class="logo">
+        <img src="{{ url_for('static', filename='images/Logo.png') }}" alt="Aurelle Logo" class="logo">
         <h1 class="site-title">*aurelle*</h1>
         <h2 class="site-subtitle">Your Finances, Illuminated</h2>
     </div>
