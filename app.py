@@ -54,7 +54,7 @@ def login():
         password = request.form['password']
     
         if username in users and check_password_hash(users[username], password): 
-            return redirect(url_for('success'))
+            return redirect(url_for('financial_form'))
         return '''
             <p>Invalid credentials. Please try again.</p>
             <a href="/login">Go back to Login</a>
