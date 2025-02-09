@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homepage</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Georgia:wght@400;700&display=swap" rel="stylesheet">
+    <title>Aurelle - Your Finances, Illuminated</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400&family=Georgia:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             padding: 0;
@@ -15,10 +19,9 @@
             background: linear-gradient(135deg, #ffdde1, #ee9ca7);
             text-align: center;
             color: #444;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            min-height: 100vh;
         }
+
         .top-right {
             position: absolute;
             top: 15px;
@@ -26,8 +29,9 @@
             display: flex;
             gap: 10px;
         }
-        .top-right button {
-            padding: 10px 16px;
+
+        .button {
+            padding: 10px 20px;
             font-size: 14px;
             font-weight: bold;
             cursor: pointer;
@@ -35,42 +39,55 @@
             background-color: #ff9797;
             color: white;
             border-radius: 25px;
-            transition: 0.3s;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
         }
-        .top-right button:hover {
+
+        .button:hover {
             background-color: #ff6b6b;
         }
+
         .header-content {
-            padding: 20px;
-            margin-bottom: 40px;
-            width: 100%;
+            padding: 60px 20px 40px;
+            margin-bottom: 20px;
         }
+
+        .logo {
+            width: 150px;
+            height: auto;
+            margin-bottom: 20px;
+            object-fit: contain;
+        }
+
+        .site-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 55px;
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+
+        .site-subtitle {
+            font-family: 'Georgia', serif;
+            font-size: 40px;
+            color: #ff6b6b;
+        }
+
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(2, minmax(300px, 400px));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 400px));
             gap: 30px;
             padding: 20px;
             justify-content: center;
-            width: 100%;
-            max-width: 1000px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        h2 {
-            color: #ff6b6b;
-            
-        }
-        h3 {
-            color: #ff6b6b;
-            font-family: 'Georgia', sans-serif;
-            font-size: 30px;
-        }
-        
-        /* Flip Card Styles */
+
         .grid-item {
-            min-height: 350px;
+            height: 350px;
             perspective: 1000px;
             cursor: pointer;
         }
-        
+
         .flip-card-inner {
             position: relative;
             width: 100%;
@@ -78,14 +95,14 @@
             text-align: center;
             transition: transform 0.8s;
             transform-style: preserve-3d;
-            min-height: 350px;
         }
-        
-        .grid-item.flipped .flip-card-inner {
+
+        .grid-item:hover .flip-card-inner {
             transform: rotateY(180deg);
         }
-        
-        .flip-card-front, .flip-card-back {
+
+        .flip-card-front,
+        .flip-card-back {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -94,125 +111,147 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 10px;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        
-        .flip-card-front {
             background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
         }
-        
+
         .flip-card-back {
             transform: rotateY(180deg);
             text-align: justify;
             background: rgba(255, 255, 255, 0.95);
         }
-        
+
+        .card-title {
+            color: #ff6b6b;
+            font-family: 'Georgia', serif;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .card-hint {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .card-content {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .card-icon {
+            width: 64px;
+            height: auto;
+            margin-top: auto;
+        }
+
         @media (max-width: 768px) {
             .grid-container {
                 grid-template-columns: minmax(280px, 400px);
                 padding: 10px;
+            }
+
+            .site-title {
+                font-size: 45px;
+            }
+
+            .site-subtitle {
+                font-size: 30px;
             }
         }
     </style>
 </head>
 <body>
     <div class="top-right">
-        <a href="{{ url_for('login') }}"><button type="button">Login</button></a>
-        <a href="{{ url_for('signup') }}"><button type="button">Sign Up</button></a>
+        <a href="#" class="button">Login</a>
+        <a href="#" class="button">Sign Up</a>
     </div>
-    
+
     <div class="header-content">
-        <!-- <h1><span style="font-family: 'Pacifico', cursive;font-size: 55px;color: #ff6b6b;">Welcome</span></h1> -->
-        <img src="Logo.png" alt="Description" class="cute-image">
-        <h1><span style="font-family: 'Dancing Script', cursive;font-size: 55px;color: #ff6b6b;">*aurelle*</span></h1>
-        <h2><span style="font-family: 'Georgia', cursive;font-size: 50px;color: #ff6b6b;">Your Finances, Illuminated</span></h2>
+        <img src="./Logo.png" alt="Aurelle Logo" class="logo">
+        <h1 class="site-title">*aurelle*</h1>
+        <h2 class="site-subtitle">Your Finances, Illuminated</h2>
     </div>
 
     <div class="grid-container">
         <div class="grid-item">
             <div class="flip-card-inner">
                 <div class="flip-card-front">
-                    <h3>Control Your Spending</h3>
-                    <p>*click to learn more*</p>
+                    <h3 class="card-title">Control Your Spending</h3>
+                    <p class="card-hint">*hover to learn more*</p>
                 </div>
                 <div class="flip-card-back">
-                    <p>Managing your finances makes you mindful of spending, as small purchases quickly add up. Budgeting ensures every dollar has a purpose, letting you enjoy life while spending intentionally.</p>
-                    <img src="calculator.png" alt="Description" class="cute-image">
+                    <p class="card-content">Managing your finances makes you mindful of spending, as small purchases quickly add up. Budgeting ensures every dollar has a purpose, letting you enjoy life while spending intentionally.</p>
+                    <img src="./calculator.png" alt="Calculator" class="card-icon">
                 </div>
             </div>
         </div>
+
         <div class="grid-item">
             <div class="flip-card-inner">
                 <div class="flip-card-front">
-                    <h3>Help Save Money</h3>
-                    <p>*click to learn more*</p>
+                    <h3 class="card-title">Help Save Money</h3>
+                    <p class="card-hint">*hover to learn more*</p>
                 </div>
                 <div class="flip-card-back">
-                    <p>A solid plan builds financial security, whether for a big purchase, a trip, or the future. Regular saving gives you freedom, options, and a safety net for life's surprises.</p>
-                    <img src="wallet.png" alt="Description" class="cute-image">
+                    <p class="card-content">A solid plan builds financial security, whether for a big purchase, a trip, or the future. Regular saving gives you freedom, options, and a safety net for life's surprises.</p>
+                    <img src="./wallet.png" alt="Wallet" class="card-icon">
                 </div>
             </div>
         </div>
+
         <div class="grid-item">
             <div class="flip-card-inner">
                 <div class="flip-card-front">
-                    <h3>Avoid Debt</h3>
-                    <p>*click to learn more*</p>
+                    <h3 class="card-title">Avoid Debt</h3>
+                    <p class="card-hint">*hover to learn more*</p>
                 </div>
                 <div class="flip-card-back">
-                    <p>Debt can hinder your financial goals. By managing your finances, you can avoid unnecessary debt, pay off what you owe, and keep more of your money, all while working toward the life you want.</p>
-                    <img src="stars.png" alt="Description" class="cute-image">
+                    <p class="card-content">Debt can hinder your financial goals. By managing your finances, you can avoid unnecessary debt, pay off what you owe, and keep more of your money, all while working toward the life you want.</p>
+                    <img src="./stars.png" alt="Stars" class="card-icon">
                 </div>
             </div>
         </div>
+
         <div class="grid-item">
             <div class="flip-card-inner">
                 <div class="flip-card-front">
-                    <h3>Prepare for Emergencies</h3>
-                    <p>*click to learn more*</p>
+                    <h3 class="card-title">Prepare for Emergencies</h3>
+                    <p class="card-hint">*hover to learn more*</p>
                 </div>
                 <div class="flip-card-back">
-                    <p>Life is full of surprises, and an emergency fund can help you handle them. A good budget lets you save for unexpected expenses, providing peace of mind and stability. Even small savings add up, offering a cushion when life throws a curveball.</p>
-                    <img src="crown.png" alt="Description" class="cute-image">
+                    <p class="card-content">Life is full of surprises, and an emergency fund can help you handle them. A good budget lets you save for unexpected expenses, providing peace of mind and stability. Even small savings add up, offering a cushion when life throws a curveball.</p>
+                    <img src="./crown.png" alt="Crown" class="card-icon">
                 </div>
             </div>
         </div>
+
         <div class="grid-item">
             <div class="flip-card-inner">
                 <div class="flip-card-front">
-                    <h3>Achieve Your Financial Goals</h3>
-                    <p>*click to learn more*</p>
+                    <h3 class="card-title">Achieve Your Financial Goals</h3>
+                    <p class="card-hint">*hover to learn more*</p>
                 </div>
                 <div class="flip-card-back">
-                    <p>Smart money management is essential for achieving your goals, whether it's buying a home, starting a business, or retiring comfortably. With a clear plan, financial dreams become attainable. It's about aligning your spending and saving with what matters most, making choices that bring you closer to the future you want.</p>
-                    <img src="house.png" alt="Description" class="cute-image">
+                    <p class="card-content">Smart money management is essential for achieving your goals, whether it's buying a home, starting a business, or retiring comfortably. With a clear plan, financial dreams become attainable. It's about aligning your spending and saving with what matters most.</p>
+                    <img src="./house.png" alt="House" class="card-icon">
                 </div>
             </div>
         </div>
+
         <div class="grid-item">
             <div class="flip-card-inner">
                 <div class="flip-card-front">
-                    <h3>Reduce Stress</h3>
-                    <p>*click to learn more*</p>
+                    <h3 class="card-title">Reduce Stress</h3>
+                    <p class="card-hint">*hover to learn more*</p>
                 </div>
                 <div class="flip-card-back">
-                    <p>Money worries can drain you emotionally, affecting your health and happiness. But by budgeting, saving, and making smart choices, you replace stress with confidence. Having a plan gives you security and peace of mind, so you don't have to worry about bills or emergencies.</p>
-                    <img src="bow.png" alt="Description" class="cute-image">
+                    <p class="card-content">Money worries can drain you emotionally, affecting your health and happiness. But by budgeting, saving, and making smart choices, you replace stress with confidence. Having a plan gives you security and peace of mind.</p>
+                    <img src="./bow.png" alt="Bow" class="card-icon">
                 </div>
             </div>
         </div>
     </div>
-
-    <script>
-        document.querySelectorAll('.grid-item').forEach(item => {
-            item.addEventListener('click', () => {
-                item.classList.toggle('flipped');
-            });
-        });
-    </script>
 </body>
 </html>
