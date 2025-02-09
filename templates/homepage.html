@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage</title>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Georgia:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
@@ -13,6 +15,9 @@
             background: linear-gradient(135deg, #ffdde1, #ee9ca7);
             text-align: center;
             color: #444;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .top-right {
             position: absolute;
@@ -35,59 +40,173 @@
         .top-right button:hover {
             background-color: #ff6b6b;
         }
-        .center-content {
+        .header-content {
+            padding: 20px;
+            margin-bottom: 40px;
+            width: 100%;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(300px, 400px));
+            gap: 30px;
+            padding: 20px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1000px;
+        }
+        h2 {
+            color: #ff6b6b;
+            
+        }
+        h3 {
+            color: #ff6b6b;
+            font-family: 'Georgia', sans-serif;
+            font-size: 30px;
+        }
+        
+        /* Flip Card Styles */
+        .grid-item {
+            min-height: 350px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            min-height: 350px;
+        }
+        
+        .grid-item.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-        h1 {
-            font-family: 'Pacifico', cursive;
-            font-size: 55px;
-            color: #ff6b6b;
-        }
-        h2, h3 {
-            color: #ff6b6b;
-        }
-        p {
-            max-width: 800px;
             background: rgba(255, 255, 255, 0.8);
-            padding: 20px;
             border-radius: 10px;
             box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-            text-align: justify;
-            transition: transform 0.3s ease-in-out; /* Smooth transition */
+            padding: 20px;
+            box-sizing: border-box;
         }
-
-        p:hover {
-            transform: scale(1.05); /* Enlarges by 5% */
-            box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2); /* Adds a stronger shadow */
+        
+        .flip-card-front {
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        .flip-card-back {
+            transform: rotateY(180deg);
+            text-align: justify;
+            background: rgba(255, 255, 255, 0.95);
+        }
+        
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: minmax(280px, 400px);
+                padding: 10px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="top-right">
         <a href="{{ url_for('login') }}"><button type="button">Login</button></a>
-        <a href="{{ url_for('signup') }}"><button type="button">Signup</button></a>
+        <a href="{{ url_for('signup') }}"><button type="button">Sign Up</button></a>
     </div>
-    <div class="center-content">
-        <h1>Welcome</h1>
+    
+    <div class="header-content">
+        <!-- <h1><span style="font-family: 'Pacifico', cursive;font-size: 55px;color: #ff6b6b;">Welcome</span></h1> -->
         <img src="Logo.png" alt="Description" class="cute-image">
-        <h2>The Importance of Money Management</h2>
-        <h3>Controls Spending</h3>
-        <p>Money has a way of disappearing if we’re not keeping track of it! When you actively manage your money, you become more mindful of your spending habits. It’s easy to overspend on small things—an extra coffee here, a few impulse purchases there—but those little expenses add up quickly. By setting a budget and tracking where your money goes, you ensure that every dollar has a purpose. This doesn’t mean you can’t enjoy life—it just means you’re spending intentionally, so your money works for you instead of vanishing without a trace.</p>
-        <h3>Helps Save Money</h3>
-        <p> Saving money isn’t just about putting aside what’s left at the end of the month—it’s about making it a priority. When you manage your finances well, you create a savings plan that helps you build financial security over time. Whether it’s for a big purchase, a dream vacation, or your long-term future, saving regularly gives you more options and freedom. Think of savings as your financial safety net—it allows you to take opportunities and handle unexpected challenges without stress.</p>
-        <h3>Avoid Debt</h3>
-        <p>Debt can feel like a heavy weight, holding you back from your financial goals. While some debt, like a mortgage or student loans, may be necessary, other types—like high-interest credit card debt—can spiral out of control if not managed properly. By staying on top of your finances, you can avoid unnecessary debt, pay off what you owe strategically, and keep more of your hard-earned money. A good money management plan helps you live within your means while still working toward the life you want.</p>
-        <h3>Prepares for Emergencies</h3>
-        <p>Life is full of surprises—some good, some not so good. An unexpected car repair, medical bill, or job loss can throw your finances into chaos if you’re not prepared. That’s why having an emergency fund is so important. A well-managed budget allows you to set aside money for these surprises, giving you peace of mind and financial stability. Even saving a little at a time adds up, and when life throws you a curveball, you’ll be grateful for that financial cushion.</p>
-        <h3>Achieves Financial Goals</h3>
-        <p>Whether your goals include buying a home, starting a business, traveling the world, or retiring comfortably, smart money management is the key to making them happen. Without a plan, financial dreams can feel out of reach—but when you set clear goals and create a step-by-step strategy, they become much more attainable. Managing your money means aligning your spending and saving habits with what truly matters to you. It’s not about sacrifice; it’s about making choices that bring you closer to the future you want.</p>
-        <h3>Reduces Stress</h3>
-        <p>Money worries can take a huge emotional toll. Financial stress can impact your relationships, health, and overall happiness. But when you take control of your finances—by budgeting, saving, and making informed decisions—you replace that stress with confidence. Knowing you’re on top of your money gives you a sense of security and freedom. You don’t have to wonder if you can cover your bills or afford an emergency—you’ll already have a plan in place. And that peace of mind? It’s priceless.</p>
+        <h1><span style="font-family: 'Dancing Script', cursive;font-size: 55px;color: #ff6b6b;">*aurelle*</span></h1>
+        <h2><span style="font-family: 'Georgia', cursive;font-size: 50px;color: #ff6b6b;">Your Finances, Illuminated</span></h2>
     </div>
+
+    <div class="grid-container">
+        <div class="grid-item">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <h3>Control Your Spending</h3>
+                    <p>*click to learn more*</p>
+                </div>
+                <div class="flip-card-back">
+                    <p>Managing your finances makes you mindful of spending, as small purchases quickly add up. Budgeting ensures every dollar has a purpose, letting you enjoy life while spending intentionally.</p>
+                </div>
+            </div>
+        </div>
+        <div class="grid-item">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <h3>Help Save Money</h3>
+                    <p>*click to learn more*</p>
+                </div>
+                <div class="flip-card-back">
+                    <p>A solid plan builds financial security, whether for a big purchase, a trip, or the future. Regular saving gives you freedom, options, and a safety net for life's surprises.</p>
+                </div>
+            </div>
+        </div>
+        <div class="grid-item">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <h3>Avoid Debt</h3>
+                    <p>*click to learn more*</p>
+                </div>
+                <div class="flip-card-back">
+                    <p>Debt can hinder your financial goals. By managing your finances, you can avoid unnecessary debt, pay off what you owe, and keep more of your money, all while working toward the life you want.</p>
+                </div>
+            </div>
+        </div>
+        <div class="grid-item">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <h3>Prepare for Emergencies</h3>
+                    <p>*click to learn more*</p>
+                </div>
+                <div class="flip-card-back">
+                    <p>Life is full of surprises, and an emergency fund can help you handle them. A good budget lets you save for unexpected expenses, providing peace of mind and stability. Even small savings add up, offering a cushion when life throws a curveball.</p>
+                </div>
+            </div>
+        </div>
+        <div class="grid-item">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <h3>Achieve Your Financial Goals</h3>
+                    <p>*click to learn more*</p>
+                </div>
+                <div class="flip-card-back">
+                    <p>Smart money management is essential for achieving your goals, whether it's buying a home, starting a business, or retiring comfortably. With a clear plan, financial dreams become attainable. It's about aligning your spending and saving with what matters most, making choices that bring you closer to the future you want.</p>
+                </div>
+            </div>
+        </div>
+        <div class="grid-item">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <h3>Reduce Stress</h3>
+                    <p>*click to learn more*</p>
+                </div>
+                <div class="flip-card-back">
+                    <p>Money worries can drain you emotionally, affecting your health and happiness. But by budgeting, saving, and making smart choices, you replace stress with confidence. Having a plan gives you security and peace of mind, so you don't have to worry about bills or emergencies.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.grid-item').forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('flipped');
+            });
+        });
+    </script>
 </body>
 </html>
