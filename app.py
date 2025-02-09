@@ -67,6 +67,8 @@ def login():
 def financial_form():
     return render_template("financial_form.html")
 
+import random
+
 @app.route('/ask_ai', methods=['POST'])
 def ask_ai():
     user_message = request.json.get('message')
@@ -74,17 +76,61 @@ def ask_ai():
     if not user_message:
         return jsonify({"response": "I didn't understand that. Can you try again?"})
 
-    # Maintain chat history in session
+    # Ensure session variables exist
     if 'chat_history' not in session:
         session['chat_history'] = [
-            {"role": "system", "content": "You are a friendly financial assistant gathering financial details."},
-            {"role": "assistant", "content": "Hi! Let's talk about your finances. What's your monthly income?"}
+            {"role": "system", "content": "You are a financial assistant. Answer user questions and provide financial advice after gathering information."}
         ]
+    if 'question_count' not in session:
+        session['question_count'] = 0
+    if 'financial_advice_stage' not in session:
+        session['financial_advice_stage'] = False
+    if 'advice_type' not in session:
+        session['advice_type'] = None
 
-    # Add user message to chat history
+    # Save session modifications explicitly
+    session.modified = True
+
+    # List of financial-related questions
+    random_questions = [
+        "What’s your biggest financial goal right now?",
+        "How do you usually budget your monthly income?",
+        "What’s the smartest financial decision you’ve ever made?",
+        "Do you prefer saving for short-term goals or long-term security?",
+        "How comfortable are you with investing?",
+        "What’s one financial habit you wish to improve?"
+    ]
+
+    # Phase 1: Ask 3 random financial questions before moving to advice
+    if session['question_count'] < 3 and not session['financial_advice_stage']:
+        bot_response = random.choice(random_questions)
+        session['question_count'] += 1  # Update the question count
+        session.modified = True  # Ensure session updates persist
+        return jsonify({"response": bot_response})  # EARLY RETURN (Still in question phase)
+
+    # Phase 2: Ask user what type of financial advice they want
+    if not session['financial_advice_stage']:
+        session['financial_advice_stage'] = True  # Move to advice stage
+        session.modified = True
+        return jsonify({"response": "Would you like advice on saving, investing, or general financial guidance?"})  # EARLY RETURN
+
+    # Phase 3: Ensure the user selects an advice category
+    if session['advice_type'] is None:
+        if user_message.lower() in ["saving", "investing", "general"]:
+            session['advice_type'] = user_message.lower()
+            session.modified = True
+            return jsonify({"response": f"Great! I'll provide detailed advice on {session['advice_type']}. Ask me anything about it!"})  # EARLY RETURN
+        else:
+            return jsonify({"response": "Please choose one: saving, investing, or general financial advice."})  # EARLY RETURN
+
+    # Phase 4: FINALLY Reach GPT Processing for Financial Advice
+    advice_prompt = f"The user is interested in {session['advice_type']} advice. Answer their question in detail."
+
+    # Append user input to chat history
     session['chat_history'].append({"role": "user", "content": user_message})
+    session.modified = True
 
-    # Get AI response
+    # Get GPT-generated response
     ai_response = openai.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=session['chat_history']
@@ -92,10 +138,12 @@ def ask_ai():
 
     bot_response = ai_response.choices[0].message.content
 
-    # Add AI response to chat history
+    # Store AI response in session history
     session['chat_history'].append({"role": "assistant", "content": bot_response})
+    session.modified = True
 
-    return jsonify({"response": bot_response})
+    return jsonify({"response": bot_response})  # FINAL RESPONSE WITH GPT
+
 
 def save_financial_data(username, financial_data):
     with open("users.txt", "r") as f:

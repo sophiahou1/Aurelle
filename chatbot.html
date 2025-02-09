@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Budgeting Advice</title>
+    <script>
+        async function getBudgetAdvice() {
+            let response = await fetch("/budget_advice", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"}
+            });
+
+            let data = await response.json();
+            document.getElementById("chat").innerHTML += "<p><b>AI:</b> " + data.response + "</p>";
+        }
+    </script>
+</head>
+<body>
+    <h2>AI Financial Advisor</h2>
+    <div id="chat">
+        <p><b>AI:</b> Click below for your personalized financial advice!</p>
+    </div>
+    <button onclick="getBudgetAdvice()">Get Budget Advice</button>
+</body>
+</html>
