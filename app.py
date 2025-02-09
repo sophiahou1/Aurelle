@@ -44,12 +44,22 @@ def signup():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+
         if username in users:
-            return "Username already taken. Choose another one."
-        save_user(username, password)  # Save with hashing
-        users[username] = generate_password_hash(password)  # Update in memory
-        return redirect(url_for('login'))
+            # Redirect to error page if username is taken
+            return redirect(url_for('signup_error'))
+
+        # Save the user securely
+        save_user(username, password)  # Assume this function saves the user
+        users[username] = generate_password_hash(password)  # Store hashed password
+
+        return redirect(url_for('login'))  # Redirect to login page if successful
+
     return render_template('signup.html')
+
+@app.route('/signup_error')
+def signup_error():
+    return render_template('sign_failed.html')  # Show error page
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -59,11 +69,13 @@ def login():
     
         if username in users and check_password_hash(users[username], password): 
             return redirect(url_for('financial_form'))
-        return '''
-            <p>Invalid credentials. Please try again.</p>
-            <a href="/login">Go back to Login</a>
-        '''
-    return render_template('login.html')
+        else:
+            return redirect(url_for('login_failed'))  # Redirect to the login failed page
+    return render_template('login.html')  # Render the login page
+
+@app.route('/login_failed')
+def login_failed():
+    return render_template('login_failed.html')  # Render the login failed page
 
 @app.route('/financial_form')
 def financial_form():

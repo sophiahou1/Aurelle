@@ -11,7 +11,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-
+    
         body {
             margin: 0;
             padding: 0;
@@ -21,7 +21,7 @@
             color: #444;
             min-height: 100vh;
         }
-
+    
         .top-right {
             position: absolute;
             top: 15px;
@@ -29,7 +29,7 @@
             display: flex;
             gap: 10px;
         }
-
+    
         .button {
             padding: 10px 20px;
             font-size: 14px;
@@ -42,36 +42,47 @@
             transition: background-color 0.3s ease;
             text-decoration: none;
         }
-
+    
         .button:hover {
             background-color: #ff6b6b;
         }
-
+    
         .header-content {
             padding: 60px 20px 40px;
             margin-bottom: 20px;
         }
-
+    
+        /* Bounce Animation */
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    
         .logo {
             width: 350px;
             height: auto;
             margin-bottom: 20px;
             object-fit: contain;
+            animation: bounce 2s infinite; /* Apply the bounce animation */
         }
-
+    
         .site-title {
             font-family: 'Dancing Script', cursive;
             font-size: 55px;
             color: #ff6b6b;
             margin-bottom: 10px;
         }
-
+    
         .site-subtitle {
             font-family: 'Georgia', serif;
             font-size: 40px;
             color: #ff6b6b;
         }
-
+    
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 400px));
@@ -81,13 +92,13 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-
+    
         .grid-item {
             height: 350px;
             perspective: 1000px;
             cursor: pointer;
         }
-
+    
         .flip-card-inner {
             position: relative;
             width: 100%;
@@ -96,11 +107,11 @@
             transition: transform 0.8s;
             transform-style: preserve-3d;
         }
-
+    
         .grid-item:hover .flip-card-inner {
             transform: rotateY(180deg);
         }
-
+    
         .flip-card-front,
         .flip-card-back {
             position: absolute;
@@ -116,46 +127,46 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 20px;
         }
-
+    
         .flip-card-back {
             transform: rotateY(180deg);
             text-align: justify;
             background: rgba(255, 255, 255, 0.95);
         }
-
+    
         .card-title {
             color: #ff6b6b;
             font-family: 'Georgia', serif;
             font-size: 24px;
             margin-bottom: 15px;
         }
-
+    
         .card-hint {
             color: #888;
             font-size: 14px;
         }
-
+    
         .card-content {
             margin-bottom: 20px;
             line-height: 1.6;
         }
-
+    
         .card-icon {
             width: 64px;
             height: auto;
             margin-top: auto;
         }
-
+    
         @media (max-width: 768px) {
             .grid-container {
                 grid-template-columns: minmax(280px, 400px);
                 padding: 10px;
             }
-
+    
             .site-title {
                 font-size: 45px;
             }
-
+    
             .site-subtitle {
                 font-size: 30px;
             }
@@ -183,7 +194,7 @@
                 </div>
                 <div class="flip-card-back">
                     <p class="card-content">Managing your finances makes you mindful of spending, as small purchases quickly add up. Budgeting ensures every dollar has a purpose, letting you enjoy life while spending intentionally.</p>
-                    <img src="./calculator.png" alt="Calculator" class="card-icon">
+                    <img src="{{ url_for('static', filename='images/calculator.png') }}" alt="Calculator" class="card-icon">
                 </div>
             </div>
         </div>
@@ -196,7 +207,7 @@
                 </div>
                 <div class="flip-card-back">
                     <p class="card-content">A solid plan builds financial security, whether for a big purchase, a trip, or the future. Regular saving gives you freedom, options, and a safety net for life's surprises.</p>
-                    <img src="./wallet.png" alt="Wallet" class="card-icon">
+                    <img src="{{ url_for('static', filename='images/wallet.png') }}" alt="Wallet" class="card-icon">
                 </div>
             </div>
         </div>
@@ -209,7 +220,7 @@
                 </div>
                 <div class="flip-card-back">
                     <p class="card-content">Debt can hinder your financial goals. By managing your finances, you can avoid unnecessary debt, pay off what you owe, and keep more of your money, all while working toward the life you want.</p>
-                    <img src="./stars.png" alt="Stars" class="card-icon">
+                    <img src="{{ url_for('static', filename='images/stars.png') }}" alt="Stars" class="card-icon">
                 </div>
             </div>
         </div>
@@ -222,7 +233,7 @@
                 </div>
                 <div class="flip-card-back">
                     <p class="card-content">Life is full of surprises, and an emergency fund can help you handle them. A good budget lets you save for unexpected expenses, providing peace of mind and stability. Even small savings add up, offering a cushion when life throws a curveball.</p>
-                    <img src="./crown.png" alt="Crown" class="card-icon">
+                    <img src="{{ url_for('static', filename='images/crown.png') }}" alt="Crown" class="card-icon">
                 </div>
             </div>
         </div>
@@ -235,7 +246,7 @@
                 </div>
                 <div class="flip-card-back">
                     <p class="card-content">Smart money management is essential for achieving your goals, whether it's buying a home, starting a business, or retiring comfortably. With a clear plan, financial dreams become attainable. It's about aligning your spending and saving with what matters most.</p>
-                    <img src="./house.png" alt="House" class="card-icon">
+                    <img src="{{ url_for('static', filename='images/house.png') }}" alt="House" class="card-icon">
                 </div>
             </div>
         </div>
@@ -248,7 +259,7 @@
                 </div>
                 <div class="flip-card-back">
                     <p class="card-content">Money worries can drain you emotionally, affecting your health and happiness. But by budgeting, saving, and making smart choices, you replace stress with confidence. Having a plan gives you security and peace of mind.</p>
-                    <img src="./bow.png" alt="Bow" class="card-icon">
+                    <img src="{{ url_for('static', filename='images/bow.png') }}" alt="Bow" class="card-icon">
                 </div>
             </div>
         </div>
