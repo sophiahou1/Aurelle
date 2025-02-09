@@ -1,9 +1,10 @@
-from flask import Flask, redirect, render_template, request, url_for, jsonify, session
-from werkzeug.security import check_password_hash, generate_password_hash
-import openai
-from dotenv import load_dotenv
 import os
 
+import openai
+from dotenv import load_dotenv
+from flask import (Flask, jsonify, redirect, render_template, request, session,
+                   url_for)
+from werkzeug.security import check_password_hash, generate_password_hash
 
 load_dotenv()
 
@@ -36,7 +37,7 @@ users = load_users()
 
 @app.route('/')
 def home():
-    return render_template('login.html')
+    return render_template('homepage.html')
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -47,7 +48,7 @@ def signup():
             return "Username already taken. Choose another one."
         save_user(username, password)  # Save with hashing
         users[username] = generate_password_hash(password)  # Update in memory
-        return redirect(url_for('financial_form'))
+        return redirect(url_for('login'))
     return render_template('signup.html')
 
 @app.route('/login', methods=['POST', 'GET'])
@@ -57,7 +58,7 @@ def login():
         password = request.form['password']
     
         if username in users and check_password_hash(users[username], password): 
-            return redirect(url_for('success'))
+            return redirect(url_for('financial_form'))
         return '''
             <p>Invalid credentials. Please try again.</p>
             <a href="/login">Go back to Login</a>
