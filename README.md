@@ -1,4 +1,4 @@
-# hackhers25
+# Aurelle
 
 ## Meet Aurelle, your AI-powered financial assistant 
 Aurelle was designed to make money management simple and accessible. We know finance can feel overwhelming in today’s fast-paced, connected world. That’s why our platform is designed ‘for the girls’—empowering women everywhere to take control of their finances with confidence.
