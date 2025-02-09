@@ -135,13 +135,13 @@ def generate_expense_pie_chart(data):
         colors=colors[:len(categories)],  # Limit to available colors
         autopct='%1.1f%%',
         startangle=140,
-        textprops={'fontsize': 12, 'color': '#333'},
+        textprops={'fontsize': 16, 'color': '#333'},
         wedgeprops={'edgecolor': '#f3e5f5'}
     )
     
     # Add title with chic color
     plt.title(f"Expense Distribution for Monthly Income: ${data['income']}",
-              fontsize=16, color="#e91e63", pad=20)
+              fontsize=18, color="#e91e63", pad=20)
     
     for autotext in autotexts:
         autotext.set_color("black")
