@@ -4,6 +4,9 @@ import openai
 from dotenv import load_dotenv
 import os
 
+
+load_dotenv()
+
 app = Flask(__name__)
 app.secret_key = "a3f4c8e1b5d9f6a7c2e0b1d8e4f7a6c9"
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -33,7 +36,7 @@ users = load_users()
 
 @app.route('/')
 def home():
-    return render_template('homepage.html')
+    return render_template('login.html')
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -44,7 +47,7 @@ def signup():
             return "Username already taken. Choose another one."
         save_user(username, password)  # Save with hashing
         users[username] = generate_password_hash(password)  # Update in memory
-        return redirect(url_for('home'))
+        return redirect(url_for('financial_form'))
     return render_template('signup.html')
 
 @app.route('/login', methods=['POST', 'GET'])
@@ -54,7 +57,7 @@ def login():
         password = request.form['password']
     
         if username in users and check_password_hash(users[username], password): 
-            return redirect(url_for('financial_form'))
+            return redirect(url_for('success'))
         return '''
             <p>Invalid credentials. Please try again.</p>
             <a href="/login">Go back to Login</a>
