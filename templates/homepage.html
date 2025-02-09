@@ -1,85 +1,93 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
     <style>
-        /* Style for positioning login and signup buttons */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+            text-align: center;
+            color: #444;
+        }
         .top-right {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 15px;
+            right: 15px;
             display: flex;
             gap: 10px;
         }
-
-        .top-right a {
-            text-decoration: none;
-        }
-
         .top-right button {
-            padding: 8px 12px;
+            padding: 10px 16px;
             font-size: 14px;
+            font-weight: bold;
             cursor: pointer;
             border: none;
             background-color: #ff9797;
             color: white;
-            border-radius: 5px;
+            border-radius: 25px;
+            transition: 0.3s;
         }
-
+        .top-right button:hover {
+            background-color: #ff6b6b;
+        }
         .center-content {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            text-align: center;
-            padding: 20px; /* Optional, adds some breathing space */
+            padding: 20px;
         }
-
-
         h1 {
             font-family: 'Pacifico', cursive;
-            font-size: 50px;
+            font-size: 55px;
+            color: #ff6b6b;
+        }
+        h2, h3 {
+            color: #ff6b6b;
+        }
+        p {
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: justify;
+            transition: transform 0.3s ease-in-out; /* Smooth transition */
+        }
+
+        p:hover {
+            transform: scale(1.05); /* Enlarges by 5% */
+            box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2); /* Adds a stronger shadow */
         }
     </style>
 </head>
 <body>
-
-    <!-- Login and Signup Section -->
     <div class="top-right">
-        <a href="{{ url_for('login') }}">
-            <button type="button">Login</button>
-        </a>
-        <a href="{{ url_for('signup') }}">
-            <button type="button">Signup</button>
-        </a>
+        <a href="{{ url_for('login') }}"><button type="button">Login</button></a>
+        <a href="{{ url_for('signup') }}"><button type="button">Signup</button></a>
     </div>
-
-    <!-- Main Content (Centered) -->
     <div class="center-content">
         <h1>Welcome</h1>
-
+        <img src="kirby.png" alt="Description" class="cute-image">
         <h2>The Importance of Money Management</h2>
-
-        <h3>Controls Spending </h3>
+        <h3>Controls Spending</h3>
         <p>Money has a way of disappearing if we’re not keeping track of it! When you actively manage your money, you become more mindful of your spending habits. It’s easy to overspend on small things—an extra coffee here, a few impulse purchases there—but those little expenses add up quickly. By setting a budget and tracking where your money goes, you ensure that every dollar has a purpose. This doesn’t mean you can’t enjoy life—it just means you’re spending intentionally, so your money works for you instead of vanishing without a trace.</p>
         <h3>Helps Save Money</h3>
         <p> Saving money isn’t just about putting aside what’s left at the end of the month—it’s about making it a priority. When you manage your finances well, you create a savings plan that helps you build financial security over time. Whether it’s for a big purchase, a dream vacation, or your long-term future, saving regularly gives you more options and freedom. Think of savings as your financial safety net—it allows you to take opportunities and handle unexpected challenges without stress.</p>
-        <h3>Avoid Debt </h3>
+        <h3>Avoid Debt</h3>
         <p>Debt can feel like a heavy weight, holding you back from your financial goals. While some debt, like a mortgage or student loans, may be necessary, other types—like high-interest credit card debt—can spiral out of control if not managed properly. By staying on top of your finances, you can avoid unnecessary debt, pay off what you owe strategically, and keep more of your hard-earned money. A good money management plan helps you live within your means while still working toward the life you want.</p>
         <h3>Prepares for Emergencies</h3>
         <p>Life is full of surprises—some good, some not so good. An unexpected car repair, medical bill, or job loss can throw your finances into chaos if you’re not prepared. That’s why having an emergency fund is so important. A well-managed budget allows you to set aside money for these surprises, giving you peace of mind and financial stability. Even saving a little at a time adds up, and when life throws you a curveball, you’ll be grateful for that financial cushion.</p>
-        <h3>Achieves Financial Goals </h3>
+        <h3>Achieves Financial Goals</h3>
         <p>Whether your goals include buying a home, starting a business, traveling the world, or retiring comfortably, smart money management is the key to making them happen. Without a plan, financial dreams can feel out of reach—but when you set clear goals and create a step-by-step strategy, they become much more attainable. Managing your money means aligning your spending and saving habits with what truly matters to you. It’s not about sacrifice; it’s about making choices that bring you closer to the future you want.</p>
         <h3>Reduces Stress</h3>
-        <p>
-            Money worries can take a huge emotional toll. Financial stress can impact your relationships, health, and overall happiness. But when you take control of your finances—by budgeting, saving, and making informed decisions—you replace that stress with confidence. Knowing you’re on top of your money gives you a sense of security and freedom. You don’t have to wonder if you can cover your bills or afford an emergency—you’ll already have a plan in place. And that peace of mind? It’s priceless.
-
- 
-        </p>
+        <p>Money worries can take a huge emotional toll. Financial stress can impact your relationships, health, and overall happiness. But when you take control of your finances—by budgeting, saving, and making informed decisions—you replace that stress with confidence. Knowing you’re on top of your money gives you a sense of security and freedom. You don’t have to wonder if you can cover your bills or afford an emergency—you’ll already have a plan in place. And that peace of mind? It’s priceless.</p>
     </div>
-
 </body>
 </html>
