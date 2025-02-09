@@ -19,11 +19,14 @@
 
         .chat-container {
             background: white;
-            padding: 20px;
-            border-radius: 15x;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            width: 350px;
-            text-align: center;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 50%;
+    height: 80vh; /* Makes it take up most of the page */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
         }
 
         h2 {
@@ -31,14 +34,13 @@
         }
 
         #chat {
-            background: #fff0f6;
-            padding: 15px;
-            height: 200px;
-            overflow-y: auto;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            text-align: left;
-            font-size: 14px;
+        background: #fff0f6;
+        padding: 15px;
+        height: 65vh; /* Most of the page height */
+        overflow-y: auto;
+        border-radius: 10px;
+        font-size: 16px;
+        flex-grow: 1;
         }
 
         p {
